@@ -1,0 +1,1 @@
+require 'fakebook-api/friends'
