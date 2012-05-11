@@ -7,14 +7,18 @@ Fakebook-API is a project designed to act as a wrapper for API calls to the Face
 ### Useage
 Fakebook-API is great for simulating expensive operations performed on facebook's GraphAPI. It's also good for arbitrary testing that requires X amount of users. Fakebook-API's current goals do not involve being a one stop solution for testing however we would love patches that extend the graph API end points we are supporting.
 
-
-To create 5000 random friends to be returned use the following command.
+Fakeing with Fakebook is done via the DSL. The following will tell fakebook-api to simulate 5000 friends for us.
 ```ruby
-FakebookAPI::Friends.create(5000)
+FakebookAPI.fake
+  friends 5000
+end
 ```
+Fakebook maps directly to objects on the graph. Any object on the graph has an object in fakebook-api.
 
-To get these friends you might be using Koala or even net/http...(seriously though use Koala). To perform operations you will need an access_token. Fakebook-API will provide you with one that it precooks so you never have to worry about auth.
+To interact with Facebook you can use Koala or even net/http...(seriously though use Koala). To perform operations you will need an access_token. Fakebook-API will provide you with one that it precooks so you never have to worry about auth.
 
 ```ruby
-FakebookAPI.access_token
+#using Koala
+@graph = Koala::Facebook::API.new(FakebookAPI.access_token)
+@graph.get_connections("me", "friends") # <= Returns 5000 friends
 ```
