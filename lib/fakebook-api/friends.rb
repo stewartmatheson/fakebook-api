@@ -1,5 +1,6 @@
-
 module FakebookAPI
-  class Friends < FacebookObject
+  module FacebookObjects
+    class Friends < FacebookObject
+    end
   end
 end

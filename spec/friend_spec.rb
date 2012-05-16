@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-describe FakebookAPI::Friends do
-  subject { FakebookAPI::Friend }
+describe FakebookAPI do
   let(:graph) { Koala::Facebook::API.new(FakebookAPI.access_token) }
   let(:friends) { graph.get_connections("me", "friends") }
   

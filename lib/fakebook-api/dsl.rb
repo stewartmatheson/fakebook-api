@@ -1,9 +1,6 @@
 module FakebookAPI
-  def self.fake &options
-    options.call self
-  end
 
-  def method_missing
-    raise "Object not found"
-  end
+  def self.fake &options
+    FakebookAPI::ObjectDispatcher.instance_eval(&options)
+  end 
 end
