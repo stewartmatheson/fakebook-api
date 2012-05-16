@@ -10,5 +10,12 @@ describe FakebookAPI do
     end 
   end
 
-  it { friends.count.should eql 5000 }
+  before do
+    friends.each do |friend|
+      puts friend["name"]
+    end
+  end
+
+  it { friends.count.should eql 100 }
+  
 end

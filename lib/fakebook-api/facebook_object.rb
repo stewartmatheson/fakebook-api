@@ -1,5 +1,6 @@
 require 'webmock'
 require 'faker'
+require 'json'
 
 module FakebookAPI
   class FacebookObject
@@ -16,7 +17,7 @@ module FakebookAPI
     private
 
     def url_matcher
-      "https://graph.facebook.com/me/friends?access_token=#{FakebookAPI.access_token}"
+      "https://graph.facebook.com/me/#{facebook_object}?access_token=#{FakebookAPI.access_token}"
     end
 
     def facebook_object 
@@ -32,7 +33,11 @@ module FakebookAPI
     end
 
     def return_body
-      "foobar"
+      return_collection = Array.new
+      @count.times do
+        return_collection << generate_structure("11010322", Faker::Name.name)
+      end
+      JSON.generate return_collection
     end
     
   end

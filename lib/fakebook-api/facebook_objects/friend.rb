@@ -13,5 +13,9 @@ module FakebookAPI::FacebookObjects
     def facebook_object
       :friends
     end
+
+    def generate_structure(*params)
+      { "id" => params[0], "name" => params[1] } 
+    end
   end
 end
