@@ -6,31 +6,33 @@ module FakebookAPI
     
     include WebMock::API
 
-    def initialize(count)
-      @count = count
+    def initialize(params)
+      @count = 100
       @results_per_page = 50 
 
-      (@count / @results_per_page).each do |page_number|
-        stub_request(http_method, url_matcher).to_return(return_body)
-      end
+      stub_request(http_method, url_matcher).to_return(to_return)
     end
 
     private
 
     def url_matcher
-      Regexp.new "/http:\/\/graph.facebook.com\/\d+\/#{facebook_object}?.+/"
+      "https://graph.facebook.com/me/friends?access_token=#{FakebookAPI.access_token}"
     end
 
-    def facebook_object
-      self.class.to_s.downcase
+    def facebook_object 
+      raise("Abstract")
     end
 
     def http_method
       raise("Abstract")
     end
 
+    def to_return
+      { :status => 200, :body => return_body, :headers => {} }
+    end
+
     def return_body
-      "Foobar"
+      "foobar"
     end
     
   end
