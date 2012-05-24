@@ -9,11 +9,11 @@ module FakebookAPI
       end
     end
 
-    private 
-
     def self.classify(incoming)
       incoming[0].upcase << incoming[1..incoming.length]
     end
+
+    private 
 
     def self.pluralize(incoming)
       incoming << "s"

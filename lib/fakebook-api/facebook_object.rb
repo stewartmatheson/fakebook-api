@@ -1,5 +1,4 @@
 require 'webmock'
-require 'faker'
 require 'json'
 
 module FakebookAPI
@@ -35,9 +34,25 @@ module FakebookAPI
     def return_body
       return_collection = Array.new
       @count.times do
-        return_collection << generate_structure("11010322", Faker::Name.name)
+        return_collection << generate_fakebook_object
       end
       JSON.generate return_collection
+    end
+
+    def generate_fakebook_object
+      generated_object = {}
+      structure.each do |key, value|
+        generated_object[key] = fakebook_field_handler(key)
+      end
+      generated_object
+    end
+
+    #lets overload for the moment but we might not end up needing this
+    def fakebook_field_handler(key)
+      FakebookAPI::FakebookFields
+        .const_get(FakebookAPI::ObjectDispatcher.classify(key))
+        .new
+        .generated_value
     end
     
   end

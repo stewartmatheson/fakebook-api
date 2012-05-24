@@ -6,16 +6,11 @@ describe FakebookAPI do
   
   before do 
     FakebookAPI.fake do
-      friends
+      friends :count => 1000
     end 
   end
 
-  before do
-    friends.each do |friend|
-      puts friend["name"]
-    end
-  end
+  it { friends.count.should eql 1000 }
 
-  it { friends.count.should eql 100 }
   
 end
