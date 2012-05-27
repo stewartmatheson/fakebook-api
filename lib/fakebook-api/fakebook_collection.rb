@@ -2,19 +2,21 @@ require 'webmock'
 require 'json'
 
 module FakebookAPI
-  class FacebookObject
-    
+  class FakebookCollection
+    OPTIONS_TO_BIND = [:count, :results_per_page]
     include WebMock::API
 
     def initialize(params)
-      @count = 100
-      @results_per_page = 50 
-
+      @params = params
       stub_request(http_method, url_matcher).to_return(to_return)
     end
 
     private
 
+    def count 
+      @params.first[:count]
+    end
+ 
     def url_matcher
       "https://graph.facebook.com/me/#{facebook_object}?access_token=#{FakebookAPI.access_token}"
     end
@@ -33,7 +35,7 @@ module FakebookAPI
 
     def return_body
       return_collection = Array.new
-      @count.times do
+      count.times do
         return_collection << generate_fakebook_object
       end
       JSON.generate return_collection

@@ -4,8 +4,8 @@ module FakebookAPI
       file_name = path.split('/').last
       object_name = classify(file_name[0..(file_name.length - 4)])
 
-      meta_def pluralize(object_name.downcase) do |*params|
-        eval("FakebookAPI::FacebookObjects::#{object_name}.new(params)")
+      meta_def object_name.downcase do |*params|
+        eval("FakebookAPI::FakebookCollections::#{object_name}.new(params)")
       end
     end
 
@@ -15,6 +15,8 @@ module FakebookAPI
 
     private 
 
+    #yep this needs to be fixed by I really don't want to include
+    #active support.
     def self.pluralize(incoming)
       incoming << "s"
     end

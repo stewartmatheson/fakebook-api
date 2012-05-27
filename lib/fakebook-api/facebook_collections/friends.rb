@@ -1,5 +1,5 @@
-module FakebookAPI::FacebookObjects
-  class Friend < FakebookAPI::FacebookObject
+module FakebookAPI::FakebookCollections
+  class Friends < FakebookAPI::FakebookCollection
     def initialize(params)
       super(params)
     end
