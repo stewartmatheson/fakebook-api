@@ -22,7 +22,7 @@ module FakebookAPI
     end
 
     def facebook_object 
-      raise("Abstract")
+      self.class.to_s.downcase.split("::").last.to_sym
     end
 
     def http_method
