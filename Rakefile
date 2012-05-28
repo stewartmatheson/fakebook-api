@@ -1,6 +1,8 @@
 $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
+$LOAD_PATH.unshift File.expand_path("../generators", __FILE__)
 
 require 'rspec/core/rake_task'
+require 'facebook_object_generator'
 
 desc 'Default: run specs.'
 task :default => :spec
@@ -24,4 +26,9 @@ desc "Release to ruby gems"
 task :release => :build do
   system "gem push fakebook-api-#{FakebookAPI::VERSION}.gem"
   system "rm fakebook-api-#{FakebookAPI::VERSION}.gem"
+end
+
+desc "Generate objects from facebook"
+task :generate => :build do
+  FacebookObjectGenerator.new
 end
