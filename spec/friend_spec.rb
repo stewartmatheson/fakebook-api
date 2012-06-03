@@ -11,6 +11,4 @@ describe FakebookAPI do
   end
 
   it { friends.count.should eql 1000 }
-
-  
 end
