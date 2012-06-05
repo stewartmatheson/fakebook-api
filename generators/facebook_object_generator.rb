@@ -11,32 +11,26 @@ class FacebookObjectGenerator
     body = facebook_documentation_body
 
     facebook_object_scraper = Scraper.define do
-      array :objects
-      process "#bodyText > ul.first", :objects => :text
-      result :objects
+      array :facebook_objects
+      process "div#bodyText.bodyText li", :facebook_objects => :text
+      result :facebook_objects
     end
 
     scraped_facebook_objects = facebook_object_scraper.scrape(body)
     puts scraped_facebook_objects
-
-    #write the templates
-    #File.open(file_name, 'w') {|f| f.write(template.result) }
   end
   
   private
 
   def facebook_documentation_body
-    agent = Mechanize.new 
-
     facebook_login_page = "http://www.facebook.com/login.php?next=http%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Freference%2Fapi%2F"
+    agent = Mechanize.new
     page = agent.get(facebook_login_page)
-
-    facebook_doc_page = page.form_with(:id => 'login_form') do |login_form|
-      login_form.email = @fb_email
-      login_form.pass = @fb_pass
-    end.submit
-
-    facebook_doc_page.body
+    login_form = page.form(:id => 'login_form')
+    login_form.email = @fb_email
+    login_form.pass = @fb_pass
+    page = agent.submit(login_form)
+    page.body
   end
 
   def file_name
