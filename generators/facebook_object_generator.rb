@@ -17,10 +17,27 @@ class FacebookObjectGenerator
     end
 
     scraped_facebook_objects = facebook_object_scraper.scrape(body)
-    puts scraped_facebook_objects
+
+    scraped_facebook_objects.each do |scraped_facebook_object|
+      puts scraped_facebook_object
+      add_object(scraped_facebook_object.split(':').first) if !!(scraped_facebook_object.match(/^\w+/))
+    end
   end
   
   private
+
+  def add_object object_name
+    template_path = File.expand_path(File.join(File.dirname(__FILE__), "templates"))
+    facebook_object_template = File.open("#{template_path}/fakebook_object.rb.erb")
+    current_template =  ERB.new(facebook_object_template.read)
+    facebook_object_template.close
+
+    target_path = File.expand_path(
+      File.join(File.dirname(__FILE__), "..", "lib", "fakebook-api", "facebook_collections", object_name.downcase + ".rb")
+    )
+
+    File.open(target_path, "w") { |f| f.write(current_template.result(binding)) } 
+  end
 
   def facebook_documentation_body
     facebook_login_page = "http://www.facebook.com/login.php?next=http%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Freference%2Fapi%2F"
@@ -32,13 +49,4 @@ class FacebookObjectGenerator
     page = agent.submit(login_form)
     page.body
   end
-
-  def file_name
-    "blah.rb"
-  end
-
-  def templte
-    ERB.new(File.open('templates/facebook_object.rb.erb'))
-  end
-
 end
