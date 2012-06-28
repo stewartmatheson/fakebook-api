@@ -1,0 +1,2 @@
+class Videos
+end

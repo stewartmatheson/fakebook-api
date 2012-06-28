@@ -1,0 +1,2 @@
+class People
+end

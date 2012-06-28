@@ -1,0 +1,2 @@
+class Concepts
+end

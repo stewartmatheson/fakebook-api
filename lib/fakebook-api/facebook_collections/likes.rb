@@ -1,0 +1,2 @@
+class Likes
+end

@@ -20,11 +20,15 @@ class FacebookObjectGenerator
 
     scraped_facebook_objects.each do |scraped_facebook_object|
       puts scraped_facebook_object
-      add_object(scraped_facebook_object.split(':').first) if !!(scraped_facebook_object.match(/^\w+/))
+      add_object(scraped_facebook_object.split(':').first) if is_facebook_object(scraped_facebook_object.split(':').first)
     end
   end
   
   private
+
+  def is_facebook_object scraped_facebook_object
+    !(scraped_facebook_object.match(/\W/))
+  end
 
   def add_object object_name
     template_path = File.expand_path(File.join(File.dirname(__FILE__), "templates"))
