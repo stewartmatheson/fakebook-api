@@ -1,2 +1,0 @@
-class Objects
-end

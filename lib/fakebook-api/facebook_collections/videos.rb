@@ -1,2 +1,5 @@
 class Videos
+   
+      field :error, "{"message"=>"An access token is required to request this resource.", "type"=>"OAuthException", "code"=>104}"
+   
 end

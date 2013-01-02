@@ -1,2 +1,5 @@
-class <%= object_name %>
+class <%= @facebook_object_name %>
+   <% @example.each do |key, value| %>
+      field :<%= key %>, "<%= value %>"
+   <% end %>
 end
