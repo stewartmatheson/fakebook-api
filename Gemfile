@@ -9,3 +9,5 @@ gem "scrapi"
 gem "highline"
 gem "mechanize"
 gem "pry"
+gem "faraday"
+

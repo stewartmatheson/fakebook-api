@@ -67,6 +67,7 @@ PLATFORMS
 
 DEPENDENCIES
   faker
+  faraday
   highline
   koala
   mechanize
