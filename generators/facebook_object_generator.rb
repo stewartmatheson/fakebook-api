@@ -1,6 +1,5 @@
 require 'scrapi'
 require 'mechanize'
-require 'json'
 require 'object_instance_generator'
 
 class FacebookObjectGenerator
